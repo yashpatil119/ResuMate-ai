@@ -9,8 +9,34 @@ import Fileuploader from "~/components/Fileuploader";
 const Upload = () => {
     const [isProcessing,setIsProcessing] = useState(false);
     const [statusText, setStatusText] = useState("");
+    const [file, setFile] = useState<File | null>(null);
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {}
+    const handleFileSelect = (selectedFile: File | null) => {
+        setFile(selectedFile);
+    };
+
+
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const form = e.currentTarget.closest('form');
+        if(!form) return;
+        const formData = new FormData(form);
+
+        const companyName = formData.get('company-name');
+        const jobTitle = formData.get('job-title');
+        const jobDescription = formData.get('job-description');
+
+        console.log({
+            companyName,
+            jobTitle,
+            jobDescription,
+            file
+        })
+
+
+
+    }
 
     // @ts-ignore
     return (
@@ -47,7 +73,7 @@ const Upload = () => {
                              <div className="form-div w-full">
                                  <label htmlFor="uploader">Upload Resume</label>
                                      <div className="w-full">
-                                         <Fileuploader/>
+                                         <Fileuploader onFileSelect={handleFileSelect} />
                                      </div>
                              </div>
                              <button className="primary-button" type="submit">
