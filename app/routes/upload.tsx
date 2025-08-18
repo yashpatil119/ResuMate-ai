@@ -27,7 +27,6 @@ const Upload = () => {
 
         setStatusText('Converting to image...');
         const imageFile = await convertPdfToImage(file);
-
         if(!imageFile.file) return setStatusText('Error: Failed to convert PDF to image');
 
         setStatusText('Uploading the image...');
@@ -62,7 +61,6 @@ const Upload = () => {
         setStatusText('Analysis complete, redirecting...');
         console.log(data);
         navigate(`/resume/${uuid}`);
-
     }
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
